@@ -53,10 +53,49 @@ Behavioral analysis and hash reputation checks identified suspicious patterns li
 ⚠️ No automatic remediation occurred at the time of detection.
 
 ---
+## aLERT ON lETSDEFEND
 ![LetsDefend SIEM Alert](./siem2.png)
 
+---
+
+## HOW I TACKLED, SOLVE AND RESOLVE THE ALERT
+
+Search the Hash for more details about the file hash `cd2ba296828660ecd07a36e8931b851dda0802069ed926b3161745aae9aa6daa` on VirusTotal
+
+Search show that the hash file with the name EmailDownloader.exe has a 53/72 malicious community score which is pretty intense. 
+
+This score were from security vendors like **Avast**, **K7Antivirus**, **Kaspersky**, **Tencent** and many more.
+
+![VirusTotal](./VT.png)
 
 
+Other Detail include their HTTP Requests and IP Traffic
+
+![Details](./moredetails.png)
+
+I've also gained the IP address of the Theat actor `136.243.108[.]14` which i can search on **Hybrid Analysis** as well. 
+
+IP has being flaged by Hybrid Analysis as **Malicious**
+
+![Hybrid Analysis](./flaged.png)
+
+
+We've gathered enough information about the hash and IP. Lets dive into our Clients endpoint to see what commands were exercuted.
+
+I searched the Clients name **Arthur** on the endpoint Security
+
+![Endppoint Security](./endsec.png)
+
+
+Went through all the 18 processes and found the EmailDownloader.exe with an Image path: `C:\Users\LetsDefend\Downloads\EmailDownloader.exe`
+
+![Image Path](./imagepath.png)
+
+Inspected the Log Management as well, where there is a comfirmation on communication between the client and the malicious IP 
+
+![Log Management](./logm.png)
+
+![Raw Log](./rawlog.png)
 
 
 ---
