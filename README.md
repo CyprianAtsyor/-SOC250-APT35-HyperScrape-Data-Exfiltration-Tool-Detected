@@ -99,6 +99,15 @@ Inspected the Log Management as well, where there is a comfirmation on communica
 
 
 ---
+
+On December 27, 2023, at 11:22 AM, alert SOC250 was triggered on host Arthur, identifying activity linked to the APT35 HyperScrape tool, a known data exfiltration utility used by Iranian threat actor Charming Kitten. The tool, identified as EmailDownloader.exe, was executed from the user’s Downloads directory, with parent process Explorer.EXE. The behavior and hash of the file (SHA-256: cd2ba2968..., MD5: 45c3592373ba9e5f8f23c6b30fb4d2e4) matched known-malicious indicators. The command line showed direct execution without obfuscation. Notably, the sample appeared under several names, including EmailDownloader.exe, 99-9-24.exe, and partially downloaded files like Unconfirmed 542331.crdownload, indicating possible browser-based delivery or staging.
+
+Network telemetry showed the destination IP as 136.243.108.14, a known malicious server likely used for command and control (C2) or exfiltration. HyperScrape typically automates login to victims' webmail, extracts emails, and removes traces by deleting inbox messages. The execution on this host suggests credential theft or phishing was likely used for initial access. Though no endpoint prevention occurred at the time (device action: "Allowed"), post-alert actions confirmed the threat was contained, preventing further compromise or outbound data loss.
+
+Immediate remediation included isolating the endpoint, revoking user credentials, and scanning for persistence mechanisms or lateral movement. DNS and proxy logs should be reviewed for communication with the malicious IP or similar behavior across the environment. To prevent recurrence, enabling multi-factor authentication (MFA), restricting downloads of executable files from browsers, and updating endpoint protection policies are strongly recommended. This event highlights the ongoing risk of nation-state actors targeting email access and user data via custom exfiltration tools.
+
+
+---
 ## 🛡️ Recommendations
 
 1. **Immediately isolate the endpoint** to prevent further exfiltration.
